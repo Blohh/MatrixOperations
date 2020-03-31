@@ -9,7 +9,7 @@ namespace myMaths {
 	private:
 		std::vector<std::vector<double>> matrix;
 		Matrix multiple(Matrix A, Matrix B);
-		Matrix multiple(Matrix A, Vector b);
+		Vector multiple(Matrix A, Vector b);
 		Matrix multiple(Matrix A, double b);
 		Matrix add(Matrix A, Matrix b);
 		Matrix fowardSubstitution();

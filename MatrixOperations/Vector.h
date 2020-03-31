@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <exception>
+#include <iostream>
 namespace myMaths {
 	class Vector
 	{
@@ -16,6 +17,7 @@ namespace myMaths {
 		myMaths::Vector& operator-(const double subbed);
 		myMaths::Vector& operator*(const double subbed);
 		double& operator[](const int i);
+		friend std::ostream& operator<<(std::ostream& stream, const Vector& vt);
 	private:
 		std::vector<double> vector;
 		static Vector multiple(const Vector& a, const double b);

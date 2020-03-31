@@ -1,18 +1,19 @@
 #include "Vector.h"
 #include <vector>
 #include <exception>
+#include <iostream>
 myMaths::Vector::Vector(int size)
 {
-	this->vector.reserve(size);
+	this->vector.resize(size);
 }
 myMaths::Vector::~Vector() {
 	this->vector.~vector();
 }
 void myMaths::Vector::zeros() {
-	for (int i = 0; i < this->vector.size; i++) vector[i] = 0;
+	for (int i = 0; i < this->vector.size(); i++) vector[i] = 0;
 }
 void myMaths::Vector::ones() {
-	for (int i = 0; i < this->vector.size; i++) vector[i] = 1;
+	for (int i = 0; i < this->vector.size(); i++) vector[i] = 1;
 }
 
 myMaths::Vector myMaths::Vector::add(const myMaths::Vector& a, const myMaths::Vector& b) {
@@ -58,14 +59,14 @@ myMaths::Vector& myMaths::Vector::operator=(const myMaths::Vector& copied)
 }
 myMaths::Vector& myMaths::Vector::operator+(const myMaths::Vector& added) throw()
 {
-	if (this->vector.size != added.vector.size) throw - 1;
+	if (this->vector.size() != added.vector.size()) throw - 1;
 	myMaths::Vector& tmp = *this;
 	tmp = add(tmp, added);
 	return tmp;
 }
 myMaths::Vector& myMaths::Vector::operator-(const myMaths::Vector& subbed) throw()
 {
-	if (this->vector.size != subbed.vector.size) throw - 1;
+	if (this->vector.size() != subbed.vector.size()) throw - 1;
 	myMaths::Vector& tmp = *this;
 	tmp = sub(tmp, subbed);
 	return tmp;
@@ -91,4 +92,15 @@ myMaths::Vector& myMaths::Vector::operator*(const double subbed)
 double& myMaths::Vector::operator[](const int i)
 {
 	return (this->vector[i]);
+}
+
+std::ostream& myMaths::operator<<(std::ostream& stream, const Vector& vt)
+{
+	int i = 0;
+	stream << "[ ";
+	for (; i < vt.vector.size() - 1; i++) {
+		stream << vt.vector[i] << ", ";
+	}
+	stream << vt.vector[i] << " ]\n";
+	return stream;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <exception>
 namespace myMaths {
 	class Vector
 	{
@@ -8,15 +9,20 @@ namespace myMaths {
 		~Vector();
 		void zeros();
 		void ones();
-
+		Vector& operator=(const Vector& copied);
+		myMaths::Vector& operator+(const myMaths::Vector& copied) throw();
+		myMaths::Vector& operator-(const myMaths::Vector& copied) throw();
+		myMaths::Vector& operator+(const double added);
+		myMaths::Vector& operator-(const double subbed);
+		myMaths::Vector& operator*(const double subbed);
+		double& operator[](const int i);
 	private:
 		std::vector<double> vector;
-		Vector multiple(Vector a, Vector b);
-		Vector multiple(Vector a, double b);
-		Vector add(Vector a, Vector b);
-		Vector add(Vector a, double b);
-		Vector sub(Vector a, Vector b);
-		Vector sub(Vector a, double b);
+		static Vector multiple(const Vector& a, const double b);
+		static Vector add(const Vector& a, const Vector& b);
+		static Vector add(const Vector& a, const double b);
+		static Vector sub(const Vector& a, const Vector& b);
+		static Vector sub(const Vector& a, const double b);
 	};
 }
 

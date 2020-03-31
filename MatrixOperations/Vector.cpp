@@ -16,40 +16,31 @@ void myMaths::Vector::ones() {
 	for (int i = 0; i < this->vector.size(); i++) vector[i] = 1;
 }
 
-myMaths::Vector myMaths::Vector::add(const myMaths::Vector& a, const myMaths::Vector& b) {
-	Vector tmp = a;
-	for (int i = 0; i < tmp.vector.size(); i++) {
-		tmp[i] += b.vector[i];
+void myMaths::Vector::add(const myMaths::Vector& b) {
+	for (int i = 0; i < this->vector.size(); i++) {
+		this->vector[i] += b.vector[i];
 	}
-	return tmp;
 }
-myMaths::Vector myMaths::Vector::add(const myMaths::Vector& a, const double b) {
-	Vector tmp = a;
-	for (int i = 0; i < tmp.vector.size(); i++) {
-		tmp[i] += b;
+void myMaths::Vector::add(const double b) {
+	for (int i = 0; i < this->vector.size(); i++) {
+		this->vector[i] += b;
 	}
-	return tmp;
 }
-myMaths::Vector myMaths::Vector::sub(const myMaths::Vector& a, const myMaths::Vector& b) {
-	Vector tmp = a;
-	for (int i = 0; i < tmp.vector.size(); i++) {
-		tmp[i] -= b.vector[i];
+void myMaths::Vector::sub(const myMaths::Vector& b) {
+	for (int i = 0; i < this->vector.size(); i++) {
+		this->vector[i] -= b.vector[i];
 	}
-	return tmp;
 }
-myMaths::Vector myMaths::Vector::sub(const myMaths::Vector& a, const double b) {
-	Vector tmp = a;
-	for (int i = 0; i < tmp.vector.size(); i++) {
-		tmp[i] -= b;
+void myMaths::Vector::sub(const double b) {
+	for (int i = 0; i < this->vector.size(); i++) {
+		this->vector[i] -= b;
 	}
-	return tmp;
 }
-myMaths::Vector myMaths::Vector::multiple(const myMaths::Vector& a, const double b) {
-	Vector tmp = a;
-	for (int i = 0; i < tmp.vector.size(); i++) {
-		tmp[i] *= b;
+
+void myMaths::Vector::multiple(const double b) {
+	for (int i = 0; i < this->vector.size(); i++) {
+		this->vector[i] *= b;
 	}
-	return tmp;
 }
 myMaths::Vector& myMaths::Vector::operator=(const myMaths::Vector& copied)
 {
@@ -57,43 +48,43 @@ myMaths::Vector& myMaths::Vector::operator=(const myMaths::Vector& copied)
 	for (int i = 0; i < vector.size(); i++) this[i] = copied.vector[i];
 	return *this;
 }
-myMaths::Vector& myMaths::Vector::operator+(const myMaths::Vector& added) throw()
+myMaths::Vector myMaths::Vector::operator+(const myMaths::Vector& added) throw()
 {
 	if (this->vector.size() != added.vector.size()) throw - 1;
-	myMaths::Vector& tmp = *this;
-	tmp = add(tmp, added);
-	return tmp;
+	myMaths::Vector vt = Vector(this->vector.size());
+	for (int i = 0; i < this->vector.size(); i++) vt.vector[i] = this->vector[i];
+	vt.add(added);
+	return vt;
 }
-myMaths::Vector& myMaths::Vector::operator-(const myMaths::Vector& subbed) throw()
+myMaths::Vector myMaths::Vector::operator-(const myMaths::Vector& subbed) throw()
 {
 	if (this->vector.size() != subbed.vector.size()) throw - 1;
-	myMaths::Vector& tmp = *this;
-	tmp = sub(tmp, subbed);
-	return tmp;
+	myMaths::Vector vt = Vector(this->vector.size());
+	for (int i = 0; i < this->vector.size(); i++) vt.vector[i] = this->vector[i];
+	vt.sub(subbed);
+	return vt;
 }
-myMaths::Vector& myMaths::Vector::operator+(const double added) 
+myMaths::Vector myMaths::Vector::operator+(const double added) 
 {
-	myMaths::Vector& tmp = *this;
-	tmp = add(tmp, added);
-	return tmp;
+	myMaths::Vector vt = Vector(this->vector.size());
+	for (int i = 0; i < this->vector.size(); i++) vt.vector[i] = this->vector[i];
+	vt.add(added);
+	return vt;
 }
-myMaths::Vector& myMaths::Vector::operator-(const double subbed)
+myMaths::Vector myMaths::Vector::operator-(const double subbed)
 {
-	myMaths::Vector& tmp = *this;
-	tmp = sub(tmp, subbed);
-	return tmp;
+	myMaths::Vector vt = Vector(this->vector.size());
+	for (int i = 0; i < this->vector.size(); i++) vt.vector[i] = this->vector[i];
+	vt.sub(subbed);
+	return vt;
 }
-myMaths::Vector& myMaths::Vector::operator*(const double subbed)
+myMaths::Vector myMaths::Vector::operator*(const double multiplication)
 {
-	myMaths::Vector& tmp = *this;
-	tmp = multiple(tmp, subbed);
-	return tmp;
+	myMaths::Vector vt = Vector(this->vector.size());
+	for (int i = 0; i < this->vector.size(); i++) vt.vector[i] = this->vector[i];
+	vt.multiple(multiplication);
+	return vt;
 }
-double& myMaths::Vector::operator[](const int i)
-{
-	return (this->vector[i]);
-}
-
 std::ostream& myMaths::operator<<(std::ostream& stream, const Vector& vt)
 {
 	int i = 0;

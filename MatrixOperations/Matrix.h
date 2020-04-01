@@ -3,9 +3,11 @@
 #include <exception>
 #include <iostream>
 #include "Vector.h"
+#include "LineralEquation.h"
 namespace myMaths {
 	class Matrix
 	{
+		friend class LineralEquation;
 	public:
 		Matrix(int rows, int cols);
 		Matrix(std::vector<std::vector<double>> mat);
@@ -25,7 +27,6 @@ namespace myMaths {
 		Matrix operator-(const double subbed) throw();
 		Matrix operator*(const double multication);
 		Vector operator*(const Vector& miltiplied) throw();
-		Vector operator/(const Vector& substitution) throw();
 		friend std::ostream& operator<<(std::ostream& stream, const Matrix& mat);
 	private:
 		std::vector<std::vector<double>> matrix;

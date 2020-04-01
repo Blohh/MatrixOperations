@@ -31,6 +31,11 @@ int myMaths::Vector::getSize() const
 	return this->vector.size();
 }
 
+double myMaths::Vector::norm() const
+{
+	return 0.0;
+}
+
 myMaths::Vector myMaths::Vector::copy() const
 {
 	myMaths::Vector vt = Vector(this->vector.size());

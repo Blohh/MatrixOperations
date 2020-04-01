@@ -13,6 +13,7 @@ namespace myMaths {
 		void zeros();
 		void ones();
 		int getSize() const;
+		double norm() const;
 		Vector copy() const;
 		Vector& operator=(const Vector& copied);
 		myMaths::Vector& operator=(const std::vector<double> vector);

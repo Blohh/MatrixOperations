@@ -16,6 +16,18 @@ void myMaths::Vector::ones() {
 	for (int i = 0; i < this->vector.size(); i++) vector[i] = 1;
 }
 
+int myMaths::Vector::getSize() const
+{
+	return this->vector.size();
+}
+
+myMaths::Vector myMaths::Vector::copy() const
+{
+	myMaths::Vector vt = Vector(this->vector.size());
+	for (int i = 0; i < this->vector.size(); i++) vt.vector[i] = this->vector[i];
+	return vt;
+}
+
 void myMaths::Vector::add(const myMaths::Vector& b) {
 	for (int i = 0; i < this->vector.size(); i++) {
 		this->vector[i] += b.vector[i];

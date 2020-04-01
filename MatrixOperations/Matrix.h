@@ -9,6 +9,8 @@ namespace myMaths {
 	public:
 		Matrix(int rows, int cols);
 		~Matrix();
+		int getRows() const;
+		int getCols() const;
 		Matrix diag();
 		Matrix upperTriangle();
 		Matrix lowerTriangle();
@@ -25,14 +27,14 @@ namespace myMaths {
 
 	private:
 		std::vector<std::vector<double>> matrix;
+		int rows, cols;
 		void add(const Matrix& B);
 		void add(const double b);
 		void sub(const Matrix& B);
 		void sub(const double b);
 		void multiple(const double b);
-		void multiple(const Vector& b);
 		void fowardSubstitution(const Vector& b);
-
+		Matrix copy();
 	};
 }
 

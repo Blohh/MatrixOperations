@@ -8,6 +8,17 @@ myMaths::Matrix::Matrix(int rows, int cols)
 	for (int i = 0; i < rows; i++) this->matrix[i].resize(cols);
 }
 
+myMaths::Matrix::Matrix(std::vector<std::vector<double>> mat)
+{
+	this->rows = mat.size();
+	this->cols = mat[0].size();
+	this->matrix.resize(rows);
+	for (int i = 0; i < this->rows; i++) {
+		this->matrix[i].resize(this->cols);
+		for (int j = 0; j < this->cols; j++) this->matrix[i][j] = mat[i][j];
+	}
+}
+
 myMaths::Matrix::~Matrix()
 {
 	for (int i = 0; i < this->rows; i++) this->matrix[i].~vector();
@@ -29,6 +40,7 @@ myMaths::Matrix myMaths::Matrix::copy() {
 	}
 	return mat;
 }
+
 myMaths::Matrix myMaths::Matrix::diag()
 {
 	Matrix mat = this->copy();
@@ -74,6 +86,18 @@ myMaths::Matrix& myMaths::Matrix::operator=(const myMaths::Matrix& copied)
 	for (int i = 0; i < copied.getRows(); i++) {
 		this->matrix[i].resize(copied.getCols());
 		for (int j = 0; j < copied.getCols(); j++) this->matrix[i][j] = copied.matrix[i][j];
+	}
+	return *this;
+}
+
+myMaths::Matrix& myMaths::Matrix::operator=(const std::vector<std::vector<double>> mat)
+{
+	this->rows = mat.size();
+	this->cols = mat[0].size();
+	this->matrix.resize(rows);
+	for (int i = 0; i < this->rows; i++) {
+		this->matrix[i].resize(this->cols);
+		for (int j = 0; j < this->cols; j++) this->matrix[i][j] = mat[i][j];
 	}
 	return *this;
 }
@@ -141,8 +165,6 @@ myMaths::Vector myMaths::Matrix::operator/(const Vector& multiplied) throw()
 	return vt;
 }
 
-
-
 void myMaths::Matrix::add(const Matrix& B)
 {
 	for (int i = 0; i < this->rows; i++)
@@ -177,9 +199,14 @@ std::ostream& myMaths::operator<<(std::ostream& stream, const Matrix& mat)
 {
 	int j = 0;
 	for (int i=0; i < mat.getRows(); i++) {
-		stream << "[ ";
+		if (i == 0) stream << " [ ";
+		else if (i < mat.getRows() - 1) std::cout << " | ";
+		else std::cout << " [ ";
 		for (j = 0; j < mat.getCols() - 1; j++) stream << mat.matrix[i][j] << ", ";
-		stream << mat.matrix[i][j] << " ]\n";
+		stream << mat.matrix[i][j];
+		if (i == 0) stream << " ]\n";
+		else if (i < mat.getRows() - 1) std::cout << " |\n";
+		else std::cout << " ]\n";
 	}
 	return stream;
 }

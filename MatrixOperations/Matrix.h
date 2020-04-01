@@ -8,6 +8,7 @@ namespace myMaths {
 	{
 	public:
 		Matrix(int rows, int cols);
+		Matrix(std::vector<std::vector<double>> mat);
 		~Matrix();
 		int getRows() const;
 		int getCols() const;
@@ -17,6 +18,7 @@ namespace myMaths {
 		void zeros();
 		void ones();
 		Matrix& operator=(const Matrix& copied);
+		Matrix& operator=(const std::vector<std::vector<double>> mat);
 		Matrix operator+(const Matrix& added) throw();
 		Matrix operator-(const Matrix& subbed) throw();
 		Matrix operator+(const double added);
@@ -36,5 +38,3 @@ namespace myMaths {
 		Matrix copy();
 	};
 }
-
-

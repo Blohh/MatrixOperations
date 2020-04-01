@@ -8,12 +8,14 @@ namespace myMaths {
 		friend class Matrix;
 	public:
 		Vector(int size);
+		Vector(std::vector<double> vt);
 		~Vector();
 		void zeros();
 		void ones();
 		int getSize() const;
 		Vector copy() const;
 		Vector& operator=(const Vector& copied);
+		myMaths::Vector& operator=(const std::vector<double> vector);
 		Vector operator+(const Vector& copied) throw();
 		Vector operator-(const Vector& copied) throw();
 		Vector operator+(const double added);

@@ -6,6 +6,11 @@ myMaths::Vector::Vector(int size)
 {
 	this->vector.resize(size);
 }
+myMaths::Vector::Vector(std::vector<double> vt)
+{
+	this->vector.resize(vt.size());
+	for (int i = 0; i < vt.size(); i++) this->vector[i] = vt[i];
+}
 myMaths::Vector::~Vector() {
 	this->vector.~vector();
 }
@@ -57,9 +62,16 @@ void myMaths::Vector::multiple(const double b) {
 myMaths::Vector& myMaths::Vector::operator=(const myMaths::Vector& copied)
 {
 	this->vector.resize(copied.vector.size());
-	for (int i = 0; i < vector.size(); i++) this[i] = copied.vector[i];
+	for (int i = 0; i < vector.size(); i++) this->vector[i] = copied.vector[i];
 	return *this;
 }
+myMaths::Vector& myMaths::Vector::operator=(const std::vector<double> vector)
+{
+	this->vector.resize(vector.size());
+	for (int i = 0; i < vector.size(); i++) this->vector[i] = vector[i];
+	return *this;
+}
+
 myMaths::Vector myMaths::Vector::operator+(const myMaths::Vector& added) throw()
 {
 	if (this->vector.size() != added.vector.size()) throw - 1;

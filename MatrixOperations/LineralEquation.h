@@ -4,11 +4,12 @@
 namespace myMaths {
 	static class LineralEquation
 	{
-		Matrix generateEquation(int a1, int a2, int a3, int N);
-		Vector generateVector(int N, int f);
-		Vector Jacobi(Matrix A, Vector b);
-		Vector GaussSeidle(Matrix A, Vector b);
-		Vector Gauss(Matrix A, Vector b);
+	public:
+		static Matrix generateEquation(int a1, int a2, int a3, int N);
+		static Vector generateVector(int N, int f);
+		static Vector Jacobi(Matrix A, Vector b);
+		static Vector GaussSeidle(Matrix A, Vector b);
+		static Vector Gauss(Matrix A, Vector b);
 	};
 }
 

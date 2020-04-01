@@ -152,6 +152,7 @@ myMaths::Vector myMaths::Matrix::operator*(const Vector& multiplied) throw()
 	return vt;
 }
 
+//TODO: MAKE FUNCTION RETURN CORRECT ANSWER
 myMaths::Vector myMaths::Matrix::operator/(const Vector& multiplied) throw()
 {
 	if (this->cols != multiplied.getSize()) throw "Wrong size of operators in foward substitution!";;
@@ -159,8 +160,9 @@ myMaths::Vector myMaths::Matrix::operator/(const Vector& multiplied) throw()
 	vt.zeros();
 	for (int i = 0; i < this->rows; i++)
 	{
-		for (int j = 0; j < this->cols; j++)
-			vt.vector[i] += 1/this->matrix[i][j] * multiplied.vector[j];
+		for (int j = 0; j < this->cols; j++) {
+			if (this->matrix[i][j]!=0)vt.vector[i] += (1.0 / this->matrix[i][j]) * multiplied.vector[j];
+		}
 	}
 	return vt;
 }

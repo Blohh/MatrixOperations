@@ -2,21 +2,26 @@
 #include <vector>
 #include <exception>
 #include <iostream>
+
 myMaths::Vector::Vector(int size)
 {
 	this->vector.resize(size);
 }
+
 myMaths::Vector::Vector(std::vector<double> vt)
 {
 	this->vector.resize(vt.size());
 	for (int i = 0; i < vt.size(); i++) this->vector[i] = vt[i];
 }
+
 myMaths::Vector::~Vector() {
 	this->vector.~vector();
 }
+
 void myMaths::Vector::zeros() {
 	for (int i = 0; i < this->vector.size(); i++) vector[i] = 0;
 }
+
 void myMaths::Vector::ones() {
 	for (int i = 0; i < this->vector.size(); i++) vector[i] = 1;
 }
@@ -48,6 +53,7 @@ void myMaths::Vector::sub(const myMaths::Vector& b) {
 		this->vector[i] -= b.vector[i];
 	}
 }
+
 void myMaths::Vector::sub(const double b) {
 	for (int i = 0; i < this->vector.size(); i++) {
 		this->vector[i] -= b;
@@ -65,6 +71,7 @@ myMaths::Vector& myMaths::Vector::operator=(const myMaths::Vector& copied)
 	for (int i = 0; i < vector.size(); i++) this->vector[i] = copied.vector[i];
 	return *this;
 }
+
 myMaths::Vector& myMaths::Vector::operator=(const std::vector<double> vector)
 {
 	this->vector.resize(vector.size());
@@ -80,6 +87,7 @@ myMaths::Vector myMaths::Vector::operator+(const myMaths::Vector& added) throw()
 	vt.add(added);
 	return vt;
 }
+
 myMaths::Vector myMaths::Vector::operator-(const myMaths::Vector& subbed) throw()
 {
 	if (this->vector.size() != subbed.vector.size()) throw - 1;
@@ -88,6 +96,7 @@ myMaths::Vector myMaths::Vector::operator-(const myMaths::Vector& subbed) throw(
 	vt.sub(subbed);
 	return vt;
 }
+
 myMaths::Vector myMaths::Vector::operator+(const double added) 
 {
 	myMaths::Vector vt = Vector(this->vector.size());
@@ -95,6 +104,7 @@ myMaths::Vector myMaths::Vector::operator+(const double added)
 	vt.add(added);
 	return vt;
 }
+
 myMaths::Vector myMaths::Vector::operator-(const double subbed)
 {
 	myMaths::Vector vt = Vector(this->vector.size());
@@ -102,6 +112,7 @@ myMaths::Vector myMaths::Vector::operator-(const double subbed)
 	vt.sub(subbed);
 	return vt;
 }
+
 myMaths::Vector myMaths::Vector::operator*(const double multiplication)
 {
 	myMaths::Vector vt = Vector(this->vector.size());
@@ -109,6 +120,7 @@ myMaths::Vector myMaths::Vector::operator*(const double multiplication)
 	vt.multiple(multiplication);
 	return vt;
 }
+
 std::ostream& myMaths::operator<<(std::ostream& stream, const Vector& vt)
 {
 	int i = 0;

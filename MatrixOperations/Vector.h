@@ -6,6 +6,7 @@ namespace myMaths {
 	class Vector
 	{
 		friend class Matrix;
+		friend class LineralEquation;
 	public:
 		Vector(int size);
 		Vector(std::vector<double> vt);

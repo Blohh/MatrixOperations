@@ -104,7 +104,7 @@ myMaths::Matrix& myMaths::Matrix::operator=(const std::vector<std::vector<double
 
 myMaths::Matrix myMaths::Matrix::operator+(const Matrix& added) throw()
 {
-	if (this->rows != added.getRows() || this->cols != added.getCols()) throw - 1;
+	if (this->rows != added.getRows() || this->cols != added.getCols()) throw "Wrong size of operators in matrix addition!";
 	Matrix mt = this->copy();
 	mt.add(added);
 	return mt;
@@ -112,7 +112,7 @@ myMaths::Matrix myMaths::Matrix::operator+(const Matrix& added) throw()
 
 myMaths::Matrix myMaths::Matrix::operator-(const Matrix& subbed) throw()
 {
-	if (this->rows != subbed.getRows() || this->cols != subbed.getCols()) throw - 1;
+	if (this->rows != subbed.getRows() || this->cols != subbed.getCols()) throw "Wrong size of operators in matrix substitution!";;
 	Matrix mt = this->copy();
 	mt.sub(subbed);
 	return mt;
@@ -141,7 +141,7 @@ myMaths::Matrix myMaths::Matrix::operator*(const double multication)
 
 myMaths::Vector myMaths::Matrix::operator*(const Vector& multiplied) throw()
 {
-	if (this->cols != multiplied.getSize()) throw - 1;
+	if (this->cols != multiplied.getSize()) throw "Wrong size of operators in matrix and vector multiplication!";;
 	Vector vt = Vector(multiplied.getSize());
 	vt.zeros();
 	for (int i = 0; i < this->rows; i++)
@@ -154,7 +154,7 @@ myMaths::Vector myMaths::Matrix::operator*(const Vector& multiplied) throw()
 
 myMaths::Vector myMaths::Matrix::operator/(const Vector& multiplied) throw()
 {
-	if (this->cols != multiplied.getSize()) throw - 1;
+	if (this->cols != multiplied.getSize()) throw "Wrong size of operators in foward substitution!";;
 	Vector vt = Vector(multiplied.getSize());
 	vt.zeros();
 	for (int i = 0; i < this->rows; i++)

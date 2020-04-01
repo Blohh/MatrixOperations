@@ -81,7 +81,7 @@ myMaths::Vector& myMaths::Vector::operator=(const std::vector<double> vector)
 
 myMaths::Vector myMaths::Vector::operator+(const myMaths::Vector& added) throw()
 {
-	if (this->vector.size() != added.vector.size()) throw - 1;
+	if (this->vector.size() != added.vector.size()) throw "Wrong size of operators in vector addition!";;
 	myMaths::Vector vt = Vector(this->vector.size());
 	for (int i = 0; i < this->vector.size(); i++) vt.vector[i] = this->vector[i];
 	vt.add(added);
@@ -90,7 +90,7 @@ myMaths::Vector myMaths::Vector::operator+(const myMaths::Vector& added) throw()
 
 myMaths::Vector myMaths::Vector::operator-(const myMaths::Vector& subbed) throw()
 {
-	if (this->vector.size() != subbed.vector.size()) throw - 1;
+	if (this->vector.size() != subbed.vector.size()) throw "Wrong size of operators in vector substitution!";;
 	myMaths::Vector vt = Vector(this->vector.size());
 	for (int i = 0; i < this->vector.size(); i++) vt.vector[i] = this->vector[i];
 	vt.sub(subbed);

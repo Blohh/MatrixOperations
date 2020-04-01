@@ -24,7 +24,7 @@ namespace myMaths {
 		Matrix operator*(const double multication);
 		Vector operator*(const Vector& miltiplied) throw();
 		Vector operator/(const Vector& substitution) throw();
-
+		friend std::ostream& operator<<(std::ostream& stream, const Matrix& mat);
 	private:
 		std::vector<std::vector<double>> matrix;
 		int rows, cols;
@@ -33,7 +33,6 @@ namespace myMaths {
 		void sub(const Matrix& B);
 		void sub(const double b);
 		void multiple(const double b);
-		void fowardSubstitution(const Vector& b);
 		Matrix copy();
 	};
 }

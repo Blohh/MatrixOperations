@@ -173,4 +173,13 @@ void myMaths::Matrix::multiple(const double b)
 		for (int j = 0; j < this->cols; j++) this->matrix[i][j] *= b;
 }
 
-
+std::ostream& myMaths::operator<<(std::ostream& stream, const Matrix& mat)
+{
+	int j = 0;
+	for (int i=0; i < mat.getRows(); i++) {
+		stream << "[ ";
+		for (j = 0; j < mat.getCols() - 1; j++) stream << mat.matrix[i][j] << ", ";
+		stream << mat.matrix[i][j] << " ]\n";
+	}
+	return stream;
+}

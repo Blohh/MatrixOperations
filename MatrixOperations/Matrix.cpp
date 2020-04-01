@@ -10,8 +10,8 @@ myMaths::Matrix::Matrix(int rows, int cols)
 
 myMaths::Matrix::~Matrix()
 {
-	for (int i = 0; i < this->rows; i++) this->matrix[i].~vector;
-	this->matrix.~vector;
+	for (int i = 0; i < this->rows; i++) this->matrix[i].~vector();
+	this->matrix.~vector();
 }
 int myMaths::Matrix::getRows() const
 {
@@ -80,7 +80,7 @@ myMaths::Matrix& myMaths::Matrix::operator=(const myMaths::Matrix& copied)
 
 myMaths::Matrix myMaths::Matrix::operator+(const Matrix& added) throw()
 {
-	if (this->rows != added.getRows() || this->cols != added.getCols) throw - 1;
+	if (this->rows != added.getRows() || this->cols != added.getCols()) throw - 1;
 	Matrix mt = this->copy();
 	mt.add(added);
 	return mt;
@@ -88,7 +88,7 @@ myMaths::Matrix myMaths::Matrix::operator+(const Matrix& added) throw()
 
 myMaths::Matrix myMaths::Matrix::operator-(const Matrix& subbed) throw()
 {
-	if (this->rows != subbed.getRows() || this->cols != subbed.getCols) throw - 1;
+	if (this->rows != subbed.getRows() || this->cols != subbed.getCols()) throw - 1;
 	Matrix mt = this->copy();
 	mt.sub(subbed);
 	return mt;

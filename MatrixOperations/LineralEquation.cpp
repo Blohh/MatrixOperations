@@ -30,11 +30,8 @@ myMaths::Vector myMaths::LineralEquation::Jacobi(Matrix A, Vector b)
 {
 	Matrix L = A.lowerTriangle(), U = A.upperTriangle(), D = A.diag();
 	Vector r = b.copy(), res = b.copy();
+	//TODO: correctly calculate r
 	r.ones();
-	do {
-		r = (D + L) * (-1) / (U * r) + (D + L) / b;
-		res = A * r - b;
-	} while (res.norm() > 1e-9);
 	return r;
 }
 
@@ -43,15 +40,31 @@ myMaths::Vector myMaths::LineralEquation::GaussSeidle(Matrix A, Vector b)
 	Matrix L = A.lowerTriangle(), U = A.upperTriangle(), D = A.diag();
 	Vector r = b.copy(), res = b.copy();
 	r.ones();
-	do {
-		r = (D * (-1)) / ((L + U) * r) + D / b;
-		res = A * r - b;
-	} while (res.norm() > 1e-9);
+	//TODO: correctly calculate r
 	return r;
 }
 
 myMaths::Vector myMaths::LineralEquation::Gauss(Matrix A, Vector b)
 {
-	Vector v = (A/b);
+	Matrix mat = A;
+	Vector vt = b, v = b;
+	for (int i = 0; i < mat.getRows() - 1; i++) {
+		for (int j = i + 1; j < mat.getRows(); j++) {
+			double alpha = mat.matrix[j][i] / mat.matrix[i][i];
+			for (int k = 0; k < mat.getCols(); k++) {
+				mat.matrix[j][k] -= mat.matrix[i][k] * alpha;
+			}
+			vt.vector[j] -= alpha * vt.vector[i];
+		}
+	}
+	v.vector[mat.getRows() - 1] = vt.vector[mat.getRows() - 1] / mat.matrix[mat.getRows() - 1][mat.getRows() - 1];
+	for (int i = mat.getRows() - 2; i >= 0; i--) {
+		double sum = vt.vector[i];
+		for (int j = mat.getRows() - 1; j >= i + 1; j--) {
+			sum -= mat.matrix[i][j] * v.vector[j];
+		}
+		v.vector[i] = sum / mat.matrix[i][i];
+	}
+		
 	return v;
 }

@@ -1,7 +1,10 @@
 #include "LineralEquation.h"
 #include <vector>
+#include <chrono>
 unsigned int myMaths::LineralEquation::GaussSeidleIterations;
 unsigned int myMaths::LineralEquation::JacobiIterations;
+double myMaths::LineralEquation::GaussSeidleTime;
+double myMaths::LineralEquation::JacobiTime;
 myMaths::Matrix myMaths::LineralEquation::generateEquation(int a1, int a2, int a3, int N)
 {
 	std::vector<std::vector<double>> v1;
@@ -35,6 +38,8 @@ myMaths::Vector myMaths::LineralEquation::Jacobi(Matrix A, Vector b)
 	x_prev.ones();
 	res.ones();
 	res = A * x_prev - b;
+	// Record start time
+	auto start = std::chrono::high_resolution_clock::now();
 	while (res.norm() > 1e-9) {
 		JacobiIterations++;
 		for (int i = 0; i < A.getRows(); i++) {
@@ -49,7 +54,13 @@ myMaths::Vector myMaths::LineralEquation::Jacobi(Matrix A, Vector b)
 		}
 		x_prev = x_next.copy();
 		res = A * x_prev - b;
+		if (JacobiIterations > A.matrix.size() * A.matrix.size() * A.matrix.size()) break;
 	}
+
+	// Record end time
+	auto finish = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = finish - start;
+	JacobiTime = elapsed.count();
 	return x_prev;
 }
 
@@ -60,6 +71,8 @@ myMaths::Vector myMaths::LineralEquation::GaussSeidle(Matrix A, Vector b)
 	x_prev.ones();
 	res.ones();
 	res = A * x_prev - b;
+	// Record start time
+	auto start = std::chrono::high_resolution_clock::now();
 	while (res.norm() > 1e-9) {
 		GaussSeidleIterations++;
 		for (int i = 0; i < A.getRows(); i++) {
@@ -74,7 +87,12 @@ myMaths::Vector myMaths::LineralEquation::GaussSeidle(Matrix A, Vector b)
 		}
 		x_prev = x_next.copy();
 		res = A * x_prev - b;
+		if (GaussSeidleIterations > A.matrix.size()* A.matrix.size()* A.matrix.size()) break;
 	}
+	// Record end time
+	auto finish = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = finish - start;
+	GaussSeidleTime = elapsed.count();
 	return x_prev;
 }
 
@@ -111,4 +129,14 @@ unsigned int myMaths::LineralEquation::getJacobiIterations()
 unsigned int myMaths::LineralEquation::getGaussSeidleIterations()
 {
 	return GaussSeidleIterations;
+}
+
+double myMaths::LineralEquation::getGaussSeidleTime()
+{
+	return GaussSeidleTime;
+}
+
+double myMaths::LineralEquation::getJacobiTime()
+{
+	return JacobiTime;
 }

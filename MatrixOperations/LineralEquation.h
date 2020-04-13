@@ -6,6 +6,8 @@ namespace myMaths {
 	{
 		static unsigned int GaussSeidleIterations;
 		static unsigned int JacobiIterations;
+		static double GaussSeidleTime;
+		static double JacobiTime;
 	public:
 		static Matrix generateEquation(int a1, int a2, int a3, int N);
 		static Vector generateVector(int N, int f);
@@ -14,6 +16,8 @@ namespace myMaths {
 		static Vector Gauss(Matrix A, Vector b);
 		static unsigned int getJacobiIterations();
 		static unsigned int getGaussSeidleIterations();
+		static double getGaussSeidleTime();
+		static double getJacobiTime();
 		
 	};
 }

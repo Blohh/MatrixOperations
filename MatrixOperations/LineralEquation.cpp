@@ -28,11 +28,25 @@ myMaths::Vector myMaths::LineralEquation::generateVector(int N, int f)
 
 myMaths::Vector myMaths::LineralEquation::Jacobi(Matrix A, Vector b)
 {
-	Matrix L = A.lowerTriangle(), U = A.upperTriangle(), D = A.diag();
-	Vector r = b.copy(), res = b.copy();
-	//TODO: correctly calculate r
-	r.ones();
-	return r;
+	Vector x_prev = b.copy(), res = b.copy(), x_next = x_prev.copy();
+	x_prev.ones();
+	res.ones();
+	res = A * x_prev - b;
+	while (res.norm() > 1e-9) {
+		for (int i = 0; i < A.getRows(); i++) {
+			x_next.vector[i] = b.vector[i];
+			for (int j = 0; j < i; j++) {
+				 x_next.vector[i] -= A.matrix[i][j] * x_prev.vector[j];
+			}
+			for (int j = i+1; j < A.getRows(); j++) {
+				x_next.vector[i] -= A.matrix[i][j] * x_prev.vector[j];
+			}
+			x_next.vector[i] /= A.matrix[i][i];
+		}
+		x_prev = x_next.copy();
+		res = A * x_prev - b;
+	}
+	return x_prev;
 }
 
 myMaths::Vector myMaths::LineralEquation::GaussSeidle(Matrix A, Vector b)

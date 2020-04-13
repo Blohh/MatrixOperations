@@ -2,8 +2,8 @@
 #include "Matrix.h"
 #include "LineralEquation.h"
 #include <iostream>
-int c = 5, d = 7, f = 5;
-int N = 9 * c * d;
+const int c = 5, d = 7, f = 5;
+const int N = 9 * c * d;
 void exAB();
 void exC();
 int main() {

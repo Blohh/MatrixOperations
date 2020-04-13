@@ -33,7 +33,10 @@ int myMaths::Vector::getSize() const
 
 double myMaths::Vector::norm() const
 {
-	return 0.0;
+	double ans = 0.0;
+	for (int i = 0; i < this->vector.size(); i++) ans += vector[i] * vector[i];
+	ans = sqrt(ans);
+	return ans;
 }
 
 myMaths::Vector myMaths::Vector::copy() const

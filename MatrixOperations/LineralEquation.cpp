@@ -1,5 +1,7 @@
 #include "LineralEquation.h"
 #include <vector>
+unsigned int myMaths::LineralEquation::GaussSeidleIterations;
+unsigned int myMaths::LineralEquation::JacobiIterations;
 myMaths::Matrix myMaths::LineralEquation::generateEquation(int a1, int a2, int a3, int N)
 {
 	std::vector<std::vector<double>> v1;
@@ -28,11 +30,13 @@ myMaths::Vector myMaths::LineralEquation::generateVector(int N, int f)
 
 myMaths::Vector myMaths::LineralEquation::Jacobi(Matrix A, Vector b)
 {
+	JacobiIterations = 0;
 	Vector x_prev = b.copy(), res = b.copy(), x_next = x_prev.copy();
 	x_prev.ones();
 	res.ones();
 	res = A * x_prev - b;
 	while (res.norm() > 1e-9) {
+		JacobiIterations++;
 		for (int i = 0; i < A.getRows(); i++) {
 			x_next.vector[i] = b.vector[i];
 			for (int j = 0; j < i; j++) {
@@ -51,11 +55,27 @@ myMaths::Vector myMaths::LineralEquation::Jacobi(Matrix A, Vector b)
 
 myMaths::Vector myMaths::LineralEquation::GaussSeidle(Matrix A, Vector b)
 {
-	Matrix L = A.lowerTriangle(), U = A.upperTriangle(), D = A.diag();
-	Vector r = b.copy(), res = b.copy();
-	r.ones();
-	//TODO: correctly calculate r
-	return r;
+	GaussSeidleIterations = 0;
+	Vector x_prev = b.copy(), res = b.copy(), x_next = x_prev.copy();
+	x_prev.ones();
+	res.ones();
+	res = A * x_prev - b;
+	while (res.norm() > 1e-9) {
+		GaussSeidleIterations++;
+		for (int i = 0; i < A.getRows(); i++) {
+			x_next.vector[i] = b.vector[i];
+			for (int j = 0; j < i; j++) {
+				x_next.vector[i] -= A.matrix[i][j] * x_next.vector[j];
+			}
+			for (int j = i + 1; j < A.getRows(); j++) {
+				x_next.vector[i] -= A.matrix[i][j] * x_prev.vector[j];
+			}
+			x_next.vector[i] /= A.matrix[i][i];
+		}
+		x_prev = x_next.copy();
+		res = A * x_prev - b;
+	}
+	return x_prev;
 }
 
 myMaths::Vector myMaths::LineralEquation::Gauss(Matrix A, Vector b)
@@ -81,4 +101,14 @@ myMaths::Vector myMaths::LineralEquation::Gauss(Matrix A, Vector b)
 	}
 		
 	return v;
+}
+
+unsigned int myMaths::LineralEquation::getJacobiIterations()
+{
+	return JacobiIterations;
+}
+
+unsigned int myMaths::LineralEquation::getGaussSeidleIterations()
+{
+	return GaussSeidleIterations;
 }

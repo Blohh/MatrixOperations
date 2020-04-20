@@ -33,7 +33,7 @@ int myMaths::Matrix::getCols() const
 {
 	return this->cols;
 }
-myMaths::Matrix myMaths::Matrix::copy() {
+myMaths::Matrix myMaths::Matrix::copy() const{
 	Matrix mat = Matrix(this->rows, this->cols);
 	for (int i = 0; i < this->rows; i++) {
 		for (int j = 0; j < this->cols; j++) mat.matrix[i][j] = this->matrix[i][j];
@@ -152,6 +152,13 @@ myMaths::Vector myMaths::Matrix::operator*(const Vector& multiplied) throw()
 	return vt;
 }
 
+myMaths::Matrix myMaths::Matrix::operator*(const Matrix& multiplied) throw()
+{
+	if (this->cols != multiplied.rows) throw "Wrong size of operators in matrixes multiplication!";;
+	Matrix mat = this->multiple(multiplied);
+	return mat;
+}
+
 void myMaths::Matrix::add(const Matrix& B)
 {
 	for (int i = 0; i < this->rows; i++)
@@ -180,6 +187,19 @@ void myMaths::Matrix::multiple(const double b)
 {
 	for (int i = 0; i < this->rows; i++)
 		for (int j = 0; j < this->cols; j++) this->matrix[i][j] *= b;
+}
+
+myMaths::Matrix myMaths::Matrix::multiple(const Matrix& B)
+{
+	Matrix mat = Matrix(this->rows, B.cols);
+	for (int i = 0; i < mat.rows; i++) {
+		for (int j = 0; j < mat.cols; j++) {
+			for (int k = 0; k < this->cols; k++) {
+				mat.matrix[i][j] = this->matrix[i][k] * B.matrix[k][j];
+			}
+		}
+	}
+	return mat;
 }
 
 std::ostream& myMaths::operator<<(std::ostream& stream, const Matrix& mat)

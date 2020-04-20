@@ -102,7 +102,7 @@ myMaths::Matrix& myMaths::Matrix::operator=(const std::vector<std::vector<double
 	return *this;
 }
 
-myMaths::Matrix myMaths::Matrix::operator+(const Matrix& added) throw()
+myMaths::Matrix myMaths::Matrix::operator+(const Matrix& added) const throw()
 {
 	if (this->rows != added.getRows() || this->cols != added.getCols()) throw "Wrong size of operators in matrix addition!";
 	Matrix mt = this->copy();
@@ -110,7 +110,7 @@ myMaths::Matrix myMaths::Matrix::operator+(const Matrix& added) throw()
 	return mt;
 }
 
-myMaths::Matrix myMaths::Matrix::operator-(const Matrix& subbed) throw()
+myMaths::Matrix myMaths::Matrix::operator-(const Matrix& subbed) const throw()
 {
 	if (this->rows != subbed.getRows() || this->cols != subbed.getCols()) throw "Wrong size of operators in matrix substitution!";;
 	Matrix mt = this->copy();
@@ -118,28 +118,28 @@ myMaths::Matrix myMaths::Matrix::operator-(const Matrix& subbed) throw()
 	return mt;
 }
 
-myMaths::Matrix myMaths::Matrix::operator+(const double added)
+myMaths::Matrix myMaths::Matrix::operator+(const double added) const
 {
 	Matrix mt = this->copy();
 	mt.add(added);
 	return mt;
 }
 
-myMaths::Matrix myMaths::Matrix::operator-(const double subbed) throw()
+myMaths::Matrix myMaths::Matrix::operator-(const double subbed) const throw()
 {
 	Matrix mt = this->copy();
 	mt.sub(subbed);
 	return mt;
 }
 
-myMaths::Matrix myMaths::Matrix::operator*(const double multication)
+myMaths::Matrix myMaths::Matrix::operator*(const double multication) const
 {
 	Matrix mt = this->copy();
 	mt.multiple(multication);
 	return mt;
 }
 
-myMaths::Vector myMaths::Matrix::operator*(const Vector& multiplied) throw()
+myMaths::Vector myMaths::Matrix::operator*(const Vector& multiplied) const throw()
 {
 	if (this->cols != multiplied.getSize()) throw "Wrong size of operators in matrix and vector multiplication!";;
 	Vector vt = Vector(multiplied.getSize());
@@ -152,10 +152,11 @@ myMaths::Vector myMaths::Matrix::operator*(const Vector& multiplied) throw()
 	return vt;
 }
 
-myMaths::Matrix myMaths::Matrix::operator*(const Matrix& multiplied) throw()
+myMaths::Matrix myMaths::Matrix::operator*(const Matrix& multiplied) const throw()
 {
 	if (this->cols != multiplied.rows) throw "Wrong size of operators in matrixes multiplication!";;
-	Matrix mat = this->multiple(multiplied);
+	Matrix mat = this->copy();
+	mat.multiple(multiplied);
 	return mat;
 }
 

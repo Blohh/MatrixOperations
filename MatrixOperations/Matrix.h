@@ -21,13 +21,13 @@ namespace myMaths {
 		void ones();
 		Matrix& operator=(const Matrix& copied);
 		Matrix& operator=(const std::vector<std::vector<double>> mat);
-		Matrix operator+(const Matrix& added) throw();
-		Matrix operator-(const Matrix& subbed) throw();
-		Matrix operator+(const double added);
-		Matrix operator-(const double subbed) throw();
-		Matrix operator*(const double multication);
-		Vector operator*(const Vector& miltiplied) throw();
-		Matrix operator*(const Matrix& multiplied) throw();
+		Matrix operator+(const Matrix& added) const throw();
+		Matrix operator-(const Matrix& subbed) const throw();
+		Matrix operator+(const double added) const ;
+		Matrix operator-(const double subbed) const throw();
+		Matrix operator*(const double multication) const;
+		Vector operator*(const Vector& miltiplied) const throw();
+		Matrix operator*(const Matrix& multiplied) const throw();
 		friend std::ostream& operator<<(std::ostream& stream, const Matrix& mat);
 	private:
 		std::vector<std::vector<double>> matrix;

@@ -145,12 +145,11 @@ void myMaths::LineralEquation::getLUMatrixes(const Matrix& A, Matrix& L, Matrix&
 {
 	U = A;
 	L.ones(); L = L.diag();
-	for (int i = 0; i < A.matrix.size() - 1; i++) {
-		for (int j = i + 1; j < A.matrix.size(); j++) {
-			L.matrix[j][i] = U.matrix[j][i] / U.matrix[j][j];
-			for (int k = i; k < A.matrix.size(); k++) {
-				U.matrix[j][k] = U.matrix[j][k] - L.matrix[j][i] * U.matrix[i][k];
-			}
+	for (int k = 0; k < A.matrix.size() - 1; k++) {
+		for (int j = k + 1; j < A.matrix.size(); j++) {
+			L.matrix[j][k] = U.matrix[j][k] / U.matrix[k][k];
+			for (int i = k; i < A.matrix.size(); i++)
+				U.matrix[j][i] -= L.matrix[j][k] * U.matrix[k][i];
 		}
 	}
 }

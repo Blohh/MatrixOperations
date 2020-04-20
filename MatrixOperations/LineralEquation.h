@@ -18,7 +18,7 @@ namespace myMaths {
 		static unsigned int getGaussSeidleIterations();
 		static double getGaussSeidleTime();
 		static double getJacobiTime();
-		
+		static void getLUMatrixes(const Matrix& A, Matrix& L, Matrix& U);
 	};
 }
 

@@ -195,7 +195,7 @@ myMaths::Matrix myMaths::Matrix::multiple(const Matrix& B)
 	for (int i = 0; i < mat.rows; i++) {
 		for (int j = 0; j < mat.cols; j++) {
 			for (int k = 0; k < this->cols; k++) {
-				mat.matrix[i][j] = this->matrix[i][k] * B.matrix[k][j];
+				mat.matrix[i][j] += this->matrix[i][k] * B.matrix[k][j];
 			}
 		}
 	}

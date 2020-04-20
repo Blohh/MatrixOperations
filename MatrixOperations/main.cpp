@@ -6,11 +6,12 @@ const int c = 5, d = 7, f = 5;
 const int N = 9 * c * d;
 void exAB();
 void exC();
+void exD();
 int main() {
 	try {
 		exAB();
 		exC();
-
+		exD();
 	}
 	catch (const char* msg) {
 		std::cout << "Exception happened!\n" << msg << std::endl;
@@ -43,4 +44,10 @@ void exC() {
 	std::cout << "norm(A * x - b) (Gauss-Seidle) " << (mat * x2 - vt).norm() << std::endl;
 	std::cout << "Iterations (Gauss-Seidle): " << myMaths::LineralEquation::getGaussSeidleIterations() << std::endl;
 	std::cout << "Time (Gauss-Seidle): " << myMaths::LineralEquation::getGaussSeidleTime() << std::endl << std::endl;
+}
+void exD() {
+	myMaths::Matrix mat = myMaths::LineralEquation::generateEquation(3, -1, -1, N);
+	myMaths::Vector vt = myMaths::LineralEquation::generateVector(N, f);
+	myMaths::Vector x = myMaths::LineralEquation::LUFactorization(mat, vt);
+	std::cout << "norm(A * x - b) (LU factorization) " << (mat * x - vt).norm() << std::endl;
 }

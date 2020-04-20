@@ -20,6 +20,8 @@ namespace myMaths {
 		static double getJacobiTime();
 		static void getLUMatrixes(const Matrix& A, Matrix& L, Matrix& U);
 		static Vector LUFactorization(Matrix A, Vector b);
+		static Vector FowardSubstitution(Matrix L, Vector b);
+		static Vector BackSubstitution(Matrix U, Vector y);
 	};
 }
 

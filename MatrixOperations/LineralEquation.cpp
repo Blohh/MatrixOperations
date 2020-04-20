@@ -158,19 +158,29 @@ myMaths::Vector myMaths::LineralEquation::LUFactorization(Matrix A, Vector b)
 {
 	Matrix L = Matrix(A.rows, A.cols), U = Matrix(A.rows, A.cols);
 	getLUMatrixes(A, L, U);
-	//podstawienie w przód
-	Vector y = Vector(b.getSize()), x = Vector(b.getSize());
-	for (int i = 0; i < A.rows; i++) {
+	Vector y = FowardSubstitution(L, b), x = BackSubstitution(U, y);
+	return x;
+}
+
+myMaths::Vector myMaths::LineralEquation::FowardSubstitution(Matrix L, Vector b)
+{
+	Vector y = Vector(b.getSize());
+	for (int i = 0; i < L.rows; i++) {
 		double val = b.vector[i];
 		for (int j = 0; j < i; j++) {
 			if (j != i) val -= L.matrix[i][j] * y.vector[j];
 		}
 		y.vector[i] = val / L.matrix[i][i];
 	}
-	//podstawienie wstecz
-	for (int i = A.rows-1; i >= 0; i--) {
+	return y;
+}
+
+myMaths::Vector myMaths::LineralEquation::BackSubstitution(Matrix U, Vector y)
+{
+	Vector x = Vector(y.getSize());
+	for (int i = U.rows - 1; i >= 0; i--) {
 		double val = y.vector[i];
-		for (int j = i; j < A.cols; j++) {
+		for (int j = i; j < U.cols; j++) {
 			if (j != i) val -= U.matrix[i][j] * x.vector[j];
 		}
 		x.vector[i] = val / U.matrix[i][i];

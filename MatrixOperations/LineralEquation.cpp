@@ -148,8 +148,34 @@ void myMaths::LineralEquation::getLUMatrixes(const Matrix& A, Matrix& L, Matrix&
 	for (int k = 0; k < A.matrix.size() - 1; k++) {
 		for (int j = k + 1; j < A.matrix.size(); j++) {
 			L.matrix[j][k] = U.matrix[j][k] / U.matrix[k][k];
-			for (int i = k; i < A.matrix.size(); i++)
-				U.matrix[j][i] -= L.matrix[j][k] * U.matrix[k][i];
+			for(int i=k;i<A.matrix.size();i++)
+				U.matrix[j][i]-=L.matrix[j][k]*U.matrix[k][i];
 		}
 	}
 }
+
+myMaths::Vector myMaths::LineralEquation::LUFactorization(Matrix A, Vector b)
+{
+	Matrix L = Matrix(A.rows, A.cols), U = Matrix(A.rows, A.cols);
+	getLUMatrixes(A, L, U);
+	//podstawienie w przód
+	Vector y = Vector(b.getSize()), x = Vector(b.getSize());
+	for (int i = 0; i < A.rows; i++) {
+		double val = b.vector[i];
+		for (int j = 0; j < i; j++) {
+			if (j != i) val -= L.matrix[i][j] * y.vector[j];
+		}
+		y.vector[i] = val / L.matrix[i][i];
+	}
+	//podstawienie wstecz
+	for (int i = A.rows-1; i >= 0; i--) {
+		double val = y.vector[i];
+		for (int j = i; j < A.cols; j++) {
+			if (j != i) val -= U.matrix[i][j] * x.vector[j];
+		}
+		x.vector[i] = val / U.matrix[i][i];
+	}
+	return x;
+}
+
+

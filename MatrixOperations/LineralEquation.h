@@ -19,6 +19,7 @@ namespace myMaths {
 		static double getGaussSeidleTime();
 		static double getJacobiTime();
 		static void getLUMatrixes(const Matrix& A, Matrix& L, Matrix& U);
+		static Vector LUFactorization(Matrix A, Vector b);
 	};
 }
 

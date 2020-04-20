@@ -11,17 +11,17 @@ namespace myMaths {
 	public:
 		static Matrix generateEquation(int a1, int a2, int a3, int N);
 		static Vector generateVector(int N, int f);
-		static Vector Jacobi(Matrix A, Vector b);
-		static Vector GaussSeidle(Matrix A, Vector b);
-		static Vector Gauss(Matrix A, Vector b);
+		static Vector Jacobi(const Matrix& A, const Vector& b);
+		static Vector GaussSeidle(const Matrix& A, const Vector& b);
+		static Vector Gauss(const Matrix& A, const Vector& b);
 		static unsigned int getJacobiIterations();
 		static unsigned int getGaussSeidleIterations();
 		static double getGaussSeidleTime();
 		static double getJacobiTime();
 		static void getLUMatrixes(const Matrix& A, Matrix& L, Matrix& U);
-		static Vector LUFactorization(Matrix A, Vector b);
-		static Vector FowardSubstitution(Matrix L, Vector b);
-		static Vector BackSubstitution(Matrix U, Vector y);
+		static Vector LUFactorization(const Matrix& A, const Vector& b);
+		static Vector FowardSubstitution(const Matrix& L, const Vector& b);
+		static Vector BackSubstitution(const Matrix& U,const Vector& y);
 	};
 }
 

@@ -31,7 +31,7 @@ myMaths::Vector myMaths::LineralEquation::generateVector(int N, int f)
 	return vt;
 }
 
-myMaths::Vector myMaths::LineralEquation::Jacobi(Matrix A, Vector b)
+myMaths::Vector myMaths::LineralEquation::Jacobi(const Matrix& A, const Vector& b)
 {
 	JacobiIterations = 0;
 	Vector x_prev = b.copy(), res = b.copy(), x_next = x_prev.copy();
@@ -64,7 +64,7 @@ myMaths::Vector myMaths::LineralEquation::Jacobi(Matrix A, Vector b)
 	return x_prev;
 }
 
-myMaths::Vector myMaths::LineralEquation::GaussSeidle(Matrix A, Vector b)
+myMaths::Vector myMaths::LineralEquation::GaussSeidle(const Matrix& A, const Vector& b)
 {
 	GaussSeidleIterations = 0;
 	Vector x_prev = b.copy(), res = b.copy(), x_next = x_prev.copy();
@@ -96,7 +96,7 @@ myMaths::Vector myMaths::LineralEquation::GaussSeidle(Matrix A, Vector b)
 	return x_prev;
 }
 
-myMaths::Vector myMaths::LineralEquation::Gauss(Matrix A, Vector b)
+myMaths::Vector myMaths::LineralEquation::Gauss(const Matrix& A, const Vector& b)
 {
 	Matrix mat = A;
 	Vector vt = b, v = b;
@@ -154,7 +154,7 @@ void myMaths::LineralEquation::getLUMatrixes(const Matrix& A, Matrix& L, Matrix&
 	}
 }
 
-myMaths::Vector myMaths::LineralEquation::LUFactorization(Matrix A, Vector b)
+myMaths::Vector myMaths::LineralEquation::LUFactorization(const Matrix& A, const Vector& b)
 {
 	Matrix L = Matrix(A.rows, A.cols), U = Matrix(A.rows, A.cols);
 	getLUMatrixes(A, L, U);
@@ -162,7 +162,7 @@ myMaths::Vector myMaths::LineralEquation::LUFactorization(Matrix A, Vector b)
 	return x;
 }
 
-myMaths::Vector myMaths::LineralEquation::FowardSubstitution(Matrix L, Vector b)
+myMaths::Vector myMaths::LineralEquation::FowardSubstitution(const Matrix& L, const Vector& b)
 {
 	Vector y = Vector(b.getSize());
 	for (int i = 0; i < L.rows; i++) {
@@ -175,7 +175,7 @@ myMaths::Vector myMaths::LineralEquation::FowardSubstitution(Matrix L, Vector b)
 	return y;
 }
 
-myMaths::Vector myMaths::LineralEquation::BackSubstitution(Matrix U, Vector y)
+myMaths::Vector myMaths::LineralEquation::BackSubstitution(const Matrix& U, const Vector& y)
 {
 	Vector x = Vector(y.getSize());
 	for (int i = U.rows - 1; i >= 0; i--) {

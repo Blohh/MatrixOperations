@@ -5,6 +5,9 @@ unsigned int myMaths::LineralEquation::GaussSeidleIterations;
 unsigned int myMaths::LineralEquation::JacobiIterations;
 double myMaths::LineralEquation::GaussSeidleTime;
 double myMaths::LineralEquation::JacobiTime;
+double myMaths::LineralEquation::LUTime;
+
+
 myMaths::Matrix myMaths::LineralEquation::generateEquation(int a1, int a2, int a3, int N)
 {
 	std::vector<std::vector<double>> v1;
@@ -141,6 +144,11 @@ double myMaths::LineralEquation::getJacobiTime()
 	return JacobiTime;
 }
 
+double myMaths::LineralEquation::getLUTime()
+{
+	return LUTime;
+}
+
 void myMaths::LineralEquation::getLUMatrixes(const Matrix& A, Matrix& L, Matrix& U)
 {
 	U = A;
@@ -157,8 +165,14 @@ void myMaths::LineralEquation::getLUMatrixes(const Matrix& A, Matrix& L, Matrix&
 myMaths::Vector myMaths::LineralEquation::LUFactorization(const Matrix& A, const Vector& b)
 {
 	Matrix L = Matrix(A.rows, A.cols), U = Matrix(A.rows, A.cols);
+	// Record start time
+	auto start = std::chrono::high_resolution_clock::now();
 	getLUMatrixes(A, L, U);
 	Vector y = FowardSubstitution(L, b), x = BackSubstitution(U, y);
+	// Record end time
+	auto finish = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = finish - start;
+	LUTime = elapsed.count();
 	return x;
 }
 

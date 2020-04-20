@@ -8,6 +8,7 @@ namespace myMaths {
 		static unsigned int JacobiIterations;
 		static double GaussSeidleTime;
 		static double JacobiTime;
+		static double LUTime;
 	public:
 		static Matrix generateEquation(int a1, int a2, int a3, int N);
 		static Vector generateVector(int N, int f);
@@ -18,6 +19,7 @@ namespace myMaths {
 		static unsigned int getGaussSeidleIterations();
 		static double getGaussSeidleTime();
 		static double getJacobiTime();
+		static double getLUTime();
 		static void getLUMatrixes(const Matrix& A, Matrix& L, Matrix& U);
 		static Vector LUFactorization(const Matrix& A, const Vector& b);
 		static Vector FowardSubstitution(const Matrix& L, const Vector& b);

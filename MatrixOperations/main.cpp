@@ -3,8 +3,8 @@
 #include "LineralEquation.h"
 #include <iostream>
 #include <fstream>
-const int c = 5, d = 7, f = 5;
-const int N = 9 * c * d;
+const int c = 0, d = 0, f = 5;
+const int N = 9 *100 + c * 10 + d;
 void exAB();
 void exC();
 void exD();
